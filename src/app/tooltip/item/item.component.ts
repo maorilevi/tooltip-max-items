@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { TooltipItem } from '../../../models/tooltip-item.model';
+import { TooltipItem } from '../models/tooltip-item.model';
 
 @Component({
   selector: 'app-item',

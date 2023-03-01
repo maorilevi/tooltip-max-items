@@ -1,5 +1,6 @@
-<div>
-  <app-header></app-header>
-  <app-content></app-content>
-  <app-footer></app-footer>
+<div class="list-wrapper">
+  <div class="list-wrapper__list">
+    <app-item #itemElement *ngFor="let item of _list" [item]="item"></app-item>
+  </div>
+  <label *ngIf="restItems">see {{restItems.length}} more</label>
 </div>
