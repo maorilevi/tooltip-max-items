@@ -1,6 +1,7 @@
-<div class="list-wrapper">
+<div class="list-wrapper" #listWrapper>
+  <app-header #headerComponent [title]="'Test tooltip'"></app-header>
   <div class="list-wrapper__list">
     <app-item #itemElement *ngFor="let item of _list" [item]="item"></app-item>
   </div>
-  <label *ngIf="restItems">see {{restItems.length}} more</label>
+  <app-footer #footerComponent [text]="footerText"></app-footer>
 </div>

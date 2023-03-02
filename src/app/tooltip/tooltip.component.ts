@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { TooltipItem } from './models/tooltip-item.model';
 import { ItemComponent } from './item/item.component';
 import { CUSTOM_LIST } from './custom-list';
+import { HeaderComponent } from "./header/header.component";
+import { FooterComponent } from "./footer/footer.component";
 
 @Component({
   selector: 'app-tooltip',
@@ -9,8 +11,12 @@ import { CUSTOM_LIST } from './custom-list';
   styleUrls: ['./tooltip.component.scss']
 })
 export class TooltipComponent implements OnInit, AfterViewInit {
-  _list: TooltipItem[] = CUSTOM_LIST;
+  _list: TooltipItem[] = CUSTOM_LIST.reverse();
   @ViewChildren('itemElement') itemElement!: QueryList<ItemComponent>;
+  @ViewChild('listWrapper') listWrapper!: ElementRef;
+  @ViewChild('headerComponent') headerComponent!: HeaderComponent;
+  @ViewChild('footerComponent') footerComponent!: FooterComponent;
+
   @Input() set list(value: TooltipItem[]) {
     this._list = value;
     this.srcList = value;
@@ -24,7 +30,9 @@ export class TooltipComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const maxHeight = 220;
+    const headerHeight = this.headerComponent.height;
+    const footerHeight = this.footerComponent.height;
+    const maxHeight = this.listWrapper.nativeElement.offsetHeight - (headerHeight + footerHeight);
     let countHeight = 0;
     const validArr: TooltipItem[] = [];
     this.restItems = [];
@@ -38,5 +46,7 @@ export class TooltipComponent implements OnInit, AfterViewInit {
     });
     this._list = [...validArr];
   }
-
+  get footerText(): string {
+    return `see ${this.restItems.length} more`;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-
+  @Input() text: string = '';
+  @ViewChild('footerWrapper') footerWrapper!: ElementRef;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  public get height(): number {
+    if(!this.footerWrapper?.nativeElement) return 0;
+    return this.footerWrapper.nativeElement.offsetHeight;
+  }
 }
