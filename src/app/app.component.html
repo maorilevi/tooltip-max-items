@@ -1,1 +1,12 @@
-<app-tooltip></app-tooltip>
+<popover-content
+  #myPopover
+ [placement]="'right'"
+ [appendToBody]="true"
+ [animation]="true"
+ [closeOnClickOutside]="true" >
+  <app-tooltip [list]="_list"></app-tooltip>
+</popover-content>
+<div class="container">
+  <button [popover]="myPopover" [popoverOnHover]="false">click me</button>
+  <textarea [rows]="5" [value]="value" [(ngModel)]="value" (ngModelChange)="onTextChanged($event)"></textarea>
+</div>

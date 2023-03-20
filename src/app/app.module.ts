@@ -7,6 +7,9 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { HeaderComponent } from './tooltip/header/header.component';
 import { FooterComponent } from './tooltip/footer/footer.component';
 import { ItemComponent } from './tooltip/item/item.component';
+import { PopoverModule } from "ngx-smart-popover";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -14,11 +17,14 @@ import { ItemComponent } from './tooltip/item/item.component';
     HeaderComponent,
     FooterComponent,
     TooltipComponent,
-    ItemComponent
+    ItemComponent,
   ],
   imports: [
     BrowserModule,
+    PopoverModule,
+    BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

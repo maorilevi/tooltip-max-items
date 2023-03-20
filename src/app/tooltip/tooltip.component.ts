@@ -11,7 +11,7 @@ import { FooterComponent } from "./footer/footer.component";
   styleUrls: ['./tooltip.component.scss']
 })
 export class TooltipComponent implements OnInit, AfterViewInit {
-  _list: TooltipItem[] = CUSTOM_LIST.reverse();
+  _list: TooltipItem[] = [];
   @ViewChildren('itemElement') itemElement!: QueryList<ItemComponent>;
   @ViewChild('listWrapper') listWrapper!: ElementRef;
   @ViewChild('headerComponent') headerComponent!: HeaderComponent;
@@ -21,7 +21,9 @@ export class TooltipComponent implements OnInit, AfterViewInit {
     this._list = value;
     this.srcList = value;
   }
-
+  get list(): TooltipItem[] {
+    return this._list;
+  }
   private srcList: TooltipItem[] = [];
   restItems: TooltipItem[] = [];
   constructor() { }
@@ -36,9 +38,12 @@ export class TooltipComponent implements OnInit, AfterViewInit {
     let countHeight = 0;
     const validArr: TooltipItem[] = [];
     this.restItems = [];
-    this.itemElement.forEach((item: ItemComponent) => {
-      countHeight += item.itemHeight();
-      if (countHeight <= maxHeight) {
+    const sortedArray = this.itemElement.toArray().slice();
+    sortedArray.sort((a: ItemComponent, b: ItemComponent) => a.itemHeight() - b.itemHeight());
+    sortedArray.forEach((item: ItemComponent) => {
+      const currentItemHeight = item.itemHeight();
+      if ((countHeight + currentItemHeight )<= maxHeight) {
+        countHeight += currentItemHeight;
         validArr.push(item.item);
       } else {
         this.restItems.push(item.item);

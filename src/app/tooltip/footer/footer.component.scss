@@ -1,0 +1,20 @@
+$linkColor: #78b3ee;
+.footer-wrapper {
+  padding-top: 10px;
+  &__actions {
+    &__see-more {
+      @extend .action-button;
+    }
+  }
+}
+.action-button {
+  padding: 5px 10px;
+  color: $linkColor;
+  border: 2px solid $linkColor;
+  background: transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.16);
+  }
+}
